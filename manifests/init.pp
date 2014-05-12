@@ -1,4 +1,4 @@
-class modalr_devusr (
+class developer (
     $username  = "amarks",
     $usergroup = $username,
     $comment   = "Developer",
