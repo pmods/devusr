@@ -2,7 +2,8 @@ class developer (
     $username  = "amarks",
     $usergroup = $username,
     $comment   = "Developer",
-    $shell     = "/bin/bash"
+    $shell     = "/bin/bash",
+    $key       = "#No Key"
 ){
 
     group { 'devusr-grp':
@@ -37,5 +38,15 @@ class developer (
         group   => $devusr,
         ensure  => directory,
         require => User['devusr']
+    }
+
+    file { 'devusr-id-rsa':
+        name    => "/home/$devusr/.ssh/id_rsa",
+        mode    => 0600,
+        owner   => $devusr,
+        group   => $devusr,
+        ensure  => file,
+        content => $key,
+        require => File['devusr-sshdir']
     }
 }
