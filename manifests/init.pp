@@ -1,4 +1,4 @@
-class developer (
+class devusr (
     $username  = "amarks",
     $usergroup = $username,
     $comment   = "Developer",
