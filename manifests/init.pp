@@ -15,36 +15,36 @@ class devusr (
         name       => $username,
         ensure     => present,
         comment    => $comment,
-        home       => "/home/$devusr",
+        home       => "/home/$username",
         shell      => $shell,
-        gid        => $devusr,
+        gid        => $username,
         managehome => true,
         require    => Group['devusr-grp']
     }
 
     file { 'devusr-sshdir':
-        name    => "/home/$devusr/.ssh",
+        name    => "/home/$username/.ssh",
         mode    => 0700,
-        owner   => $devusr,
-        group   => $devusr,
+        owner   => $username,
+        group   => $username,
         ensure  => directory,
         require => User['devusr']
     }
 
     file { 'devusr-srcdir':
-        name    => "/home/$devusr/src",
+        name    => "/home/$username/src",
         mode    => 0700,
-        owner   => $devusr,
-        group   => $devusr,
+        owner   => $username,
+        group   => $username,
         ensure  => directory,
         require => User['devusr']
     }
 
     file { 'devusr-id-rsa':
-        name    => "/home/$devusr/.ssh/id_rsa",
+        name    => "/home/$username/.ssh/id_rsa",
         mode    => 0600,
-        owner   => $devusr,
-        group   => $devusr,
+        owner   => $username,
+        group   => $username,
         ensure  => file,
         content => $key,
         require => File['devusr-sshdir']
