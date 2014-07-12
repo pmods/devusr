@@ -6,6 +6,9 @@ class devusr (
     $key       = "#No Key"
 ){
 
+    #Default Path
+    $defpath   = "/bin:/usr/bin:/sbin:/usr/sbin:/usr/local/bin"
+
     group { 'devusr-grp':
         name   => $usergroup,
         ensure => 'present',
@@ -48,5 +51,13 @@ class devusr (
         ensure  => file,
         content => $key,
         require => File['devusr-sshdir']
+    }
+
+    exec { 'devusr-password':
+        command => "echo 'password' | passwd --stdin $username",
+        user    => 'root',
+        cwd     => "/root/",
+        path    => $defpath,
+        #unless  => "grep $username /etc/shadow | grep '!!'",
     }
 }
