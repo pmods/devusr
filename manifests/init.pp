@@ -55,6 +55,7 @@ class devusr (
 
     exec { 'devusr-password':
         command => "echo 'password' | passwd --stdin $username",
+        provider => shell,
         user    => 'root',
         cwd     => "/root/",
         path    => $defpath,
